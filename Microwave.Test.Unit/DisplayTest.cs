@@ -18,6 +18,7 @@ namespace Microwave.Test.Unit
             uut = new Display(output);
         }
 
+
         [Test]
         public void ShowTime_ZeroMinuteZeroSeconds_CorrectOutput()
         {
