@@ -20,6 +20,7 @@ namespace Microwave.Classes.Controllers
             IDisplay display,
             IPowerTube powerTube,
             IUserInterface ui) : this(timer, display, powerTube)
+
         {
             UI = ui;
         }
