@@ -5,6 +5,7 @@ using System.Text;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Interfaces;
 using NUnit.Framework;
+using Castle.Core.Internal;
 
 namespace MicroWave.Test.Integration
 {
@@ -29,7 +30,7 @@ namespace MicroWave.Test.Integration
         [Test]
         public void NoMethodCall_ConsoleIsEmpty()
         {
-            //Assert.That(stringWriter.ToString().IsNullOrEmpty());
+            Assert.That(stringWriter.ToString().IsNullOrEmpty());
         }
 
         [TestCase(45,30)]
