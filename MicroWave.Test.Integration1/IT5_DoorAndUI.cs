@@ -11,7 +11,7 @@ using NSubstitute;
 
 namespace MicroWave.Test.Integration
 {
-    public class IT4_DoorAndUI
+    public class IT5_DoorAndUI
     {
         private IDoor door;
         private IUserInterface userInterface;
@@ -41,10 +41,27 @@ namespace MicroWave.Test.Integration
         }
 
         [Test]
-        public void NoMethodCall_ConsoleIsEmpty()
+        public void Open_TurnOnCalled_StateReady()
         {
-           
+           door.Open();
+           display.Received(0).Clear();
+           light.Received(1).TurnOn();
         }
+
+        [Test]
+        public void OpenClose_TurnOffCalled()
+        {
+            door.Open();
+            door.Close();
+            light.Received(1).TurnOff();
+        }
+
+        [Test]
+        public void Open_ClearAndOnCalled_StateSetPower()
+        {
+            
+        }
+
 
     }
 }
