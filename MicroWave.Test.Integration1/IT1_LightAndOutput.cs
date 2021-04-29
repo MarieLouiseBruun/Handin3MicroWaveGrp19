@@ -6,7 +6,7 @@ using Microwave.Classes.Interfaces;
 
 namespace MicroWave.Test.Integration
 {
-    public class Test
+    public class IT1_LightAndOutput
     {
         private ILight light;
         private IOutput output;
