@@ -8,9 +8,9 @@ using NUnit.Framework;
 
 namespace MicroWave.Test.Integration
 {
-    public class IT2_DisplayAndOutput
+    public class IT3_PowerTubeAndOutput
     {
-        private IDisplay display;
+        private IPowerTube powerTube;
         private IOutput output;
         //private StringReader stringReader;
         private StringWriter stringWriter;
@@ -19,7 +19,7 @@ namespace MicroWave.Test.Integration
         public void Setup()
         {
             output = new Output();
-            display = new Display(output);
+            powerTube = new PowerTube(output);
             //stringReader = new StringReader();
             //System.Console.SetOut(stringReader);
             stringWriter = new StringWriter();
@@ -32,30 +32,22 @@ namespace MicroWave.Test.Integration
             //Assert.That(stringWriter.ToString().IsNullOrEmpty());
         }
 
-        [TestCase(45,30)]
-        [TestCase(2,23)]
-        [TestCase(0,40)]
-        public void DisplayShowsTime(int minutes, int seconds)
-        {
-            display.ShowTime(minutes,seconds);
-            Assert.That(stringWriter.ToString().Contains($"{minutes}") && stringWriter.ToString().Contains($"{seconds}"));
-        }
-
         [TestCase(50)]
         [TestCase(124)]
         [TestCase(700)]
-        public void DisplayShowsPower(int power)
+        public void PowerTubeTurnOn(int power)
         {
-            display.ShowPower(power);
+            powerTube.TurnOn(power);
             Assert.That(stringWriter.ToString().Contains($"{power}"));
         }
 
-        [Test]
-        public void DisplayCleared()
+        [TestCase(300)]
+        [TestCase(600)]
+        [TestCase(900)]
+        public void PowerTubeTurnOff(int power)
         {
-            display.Clear();
-            Assert.That(stringWriter.ToString().Contains("cleared"));
+            powerTube.TurnOff();
+            Assert.That(stringWriter.ToString().Contains($"{power}"));
         }
-    
-}
+    }
 }
