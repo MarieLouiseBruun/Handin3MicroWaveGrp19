@@ -30,9 +30,9 @@ namespace MicroWave.Test.Integration
         public void Setup()
         {
             door = new Door();
-            tButton = Substitute.For<IButton>();
-            pButton = Substitute.For<IButton>();
-            sButton = Substitute.For<IButton>();
+            tButton = new Button();
+            pButton = new Button();
+            sButton = new Button();
             display = Substitute.For<IDisplay>();
             light = Substitute.For<ILight>();
             cookController = Substitute.For<ICookController>();
@@ -41,7 +41,7 @@ namespace MicroWave.Test.Integration
         }
 
         [Test]
-        public void Open_TurnOnCalled_StateReady()
+        public void ReadyState_Open_TurnOnLightCalled()
         {
            door.Open();
            display.Received(0).Clear();
@@ -49,7 +49,7 @@ namespace MicroWave.Test.Integration
         }
 
         [Test]
-        public void OpenClose_TurnOffCalled()
+        public void DoorOpenState_Close_TurnOffLightCalled()
         {
             door.Open();
             door.Close();
@@ -57,11 +57,38 @@ namespace MicroWave.Test.Integration
         }
 
         [Test]
-        public void Open_ClearAndOnCalled_StateSetPower()
+        public void SetPowerState_DoorOpen_LightTurnedOnAndDisplayCleared()
         {
-            
+            pButton.Press();
+            door.Open();
+
+            light.Received(1).TurnOn();
+            display.Received(1).Clear();
         }
 
+        [Test]
+        public void SetTimeState_DoorOpen_LightTurnedOnAndDisplayCleared()
+        {
+            pButton.Press();
+            tButton.Press();
+            door.Open();
+
+            light.Received(1).TurnOn();
+            display.Received(1).Clear();
+        }
+
+        [Test]
+        public void CookingState_DoorOpen_CookingStoppedAndLightTurnedOnAndDisplayCleared()
+        {
+            pButton.Press();
+            tButton.Press();
+            sButton.Press();
+            door.Open();
+
+            cookController.Received(1).Stop();
+            light.Received(1).TurnOn();
+            display.Received(1).Clear();
+        }
 
     }
 }
