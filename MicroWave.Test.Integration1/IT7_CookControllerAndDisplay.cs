@@ -11,7 +11,7 @@ using NUnit.Framework;
 
 namespace MicroWave.Test.Integration
 {
-    public class T7_CookControllerAndDisplay
+    public class IT7_CookControllerAndDisplay
     {
         private CookController cookController;
         private IDisplay display;
@@ -24,7 +24,7 @@ namespace MicroWave.Test.Integration
         public void SetUp()
         {
             powerTube = Substitute.For<IPowerTube>();
-            timer = new Timer();
+            timer = Substitute.For<ITimer>();
             output = new Output();
             display = new Display(output);
             cookController = new CookController(timer,display,powerTube);
@@ -38,8 +38,12 @@ namespace MicroWave.Test.Integration
         public void bla(string minutes, string seconds)
         {
             timer.Start(Convert.ToInt32(minutes) * 60 + Convert.ToInt32(seconds));
-            cookController.OnTimerTick(this,EventArgs.Empty); 
+            cookController.OnTimerTick(this, EventArgs.Empty);
             Assert.That(stringWriter.ToString().Contains(minutes + ":" + seconds));
+
+            //timer.TimeRemaining.Returns(Convert.ToInt32(minutes) * 60 + Convert.ToInt32(seconds));
+            //timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+            //Assert.That(stringWriter.ToString().Contains(minutes+""+seconds));
 
             //Der er noget galt med denne test. Vi har prøvet forskellige versioner, der alle fejler. 
         }
