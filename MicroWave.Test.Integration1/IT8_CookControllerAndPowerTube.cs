@@ -51,6 +51,8 @@ namespace MicroWave.Test.Integration
             Assert.That(() => cookController.StartCooking(power, time), Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
+        //Skal vi teste den sidste exception, eller er det unødvendigt med alle udfald? 
+
         [Test]
         public void OnTimerExpired_PowerTubeOff()
         {
