@@ -42,13 +42,14 @@ namespace MicroWave.Test.Integration
             Assert.That(stringWriter.ToString().Contains($"{power}"));
         }
 
-        [TestCase(300)]
-        [TestCase(600)]
-        [TestCase(900)]
+        [TestCase(50)]
+        [TestCase(120)]
         public void PowerTubeTurnOff(int power)
         {
+            powerTube.TurnOn(power);
             powerTube.TurnOff();
-            Assert.That(stringWriter.ToString().Contains($"{power}"));
+            Assert.That(stringWriter.ToString().Contains("PowerTube turned off"));
+            
         }
     }
 }

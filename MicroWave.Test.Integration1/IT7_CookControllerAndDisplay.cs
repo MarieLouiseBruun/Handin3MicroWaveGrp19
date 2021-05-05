@@ -33,19 +33,18 @@ namespace MicroWave.Test.Integration
             Console.SetOut(stringWriter);
         }
 
-        //Flere testcases her. 
         [TestCase("00","20")]
-        public void bla(string minutes, string seconds)
+        [TestCase("01","55")]
+        [TestCase("10","30")]
+        //OnTimerTick method from CookController.
+        public void TimerEventThroughCookController_DisplayShowsTimer(string minutes, string seconds)
         {
-            timer.Start(Convert.ToInt32(minutes) * 60 + Convert.ToInt32(seconds));
-            cookController.OnTimerTick(this, EventArgs.Empty);
+            cookController.StartCooking(50,Convert.ToInt32(minutes)*60+Convert.ToInt32(seconds));
+            timer.TimeRemaining.Returns(Convert.ToInt32(minutes) * 60 + Convert.ToInt32(seconds));
+            timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
             Assert.That(stringWriter.ToString().Contains(minutes + ":" + seconds));
-
-            //timer.TimeRemaining.Returns(Convert.ToInt32(minutes) * 60 + Convert.ToInt32(seconds));
-            //timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
-            //Assert.That(stringWriter.ToString().Contains(minutes+""+seconds));
-
-            //Der er noget galt med denne test. Vi har prøvet forskellige versioner, der alle fejler. 
         }
+
+
     }
 }

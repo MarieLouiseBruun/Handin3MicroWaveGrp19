@@ -29,7 +29,7 @@ namespace MicroWave.Test.Integration
             userInterface = Substitute.For<IUserInterface>();
             output = new Output();
             powerTube = new PowerTube(output);
-            cookController = new CookController(timer, display, powerTube);
+            cookController = new CookController(timer, display, powerTube,userInterface);
 
             stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
@@ -51,12 +51,20 @@ namespace MicroWave.Test.Integration
             Assert.That(() => cookController.StartCooking(power, time), Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
-        //Skal vi teste den sidste exception, eller er det unødvendigt med alle udfald? 
+        [TestCase(50, 100)]
+        [TestCase(700, 100)]
+        public void StartCooking_PowerTubeOnTwice(int power, int time)
+        {
+            cookController.StartCooking(power,time);
+            Assert.That(() => cookController.StartCooking(power, time), Throws.TypeOf<ApplicationException>());
+        }
+
 
         [Test]
         public void OnTimerExpired_PowerTubeOff()
         {
             cookController.StartCooking(300,100);
+
             timer.Expired += Raise.EventWith(this, EventArgs.Empty);
             Assert.That(stringWriter.ToString().Contains("PowerTube turned off"));
         }
