@@ -44,5 +44,43 @@ namespace MicroWave.Test.Integration
             stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
         }
+        [Test]
+        public void DoorOpen_LightIsTurnedOn()
+        {
+            door.Open();
+            Assert.That(stringWriter.ToString().Contains("Light is turned on"));
+        }
+
+        [Test]
+        public void DoorClose_LightIsTurnedOff()
+        {
+            door.Open();
+            door.Close();
+            Assert.That(stringWriter.ToString().Contains("Light is turned off"));
+        }
+
+        [Test]
+        public void PowerButtonPressed_DisplayShowsPower()
+        {
+            pButton.Press();
+            Assert.That(stringWriter.ToString().Contains("50 W"));
+        }
+
+        [Test]
+        public void TimeButtonPressed_DisplayShowsTime()
+        {
+            pButton.Press();
+            tButton.Press();
+            Assert.That(stringWriter.ToString().Contains("1:00"));
+        }
+
+        [Test]
+        public void StartCancelButtonPressed_PowerTubeIsTurnedOn()
+        {
+            pButton.Press();
+            tButton.Press();
+            sButton.Press();
+            Assert.That(stringWriter.ToString().Contains("PowerTube works with 50"));
+        }
     }
 }
