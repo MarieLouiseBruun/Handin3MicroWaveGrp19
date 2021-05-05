@@ -22,7 +22,6 @@ namespace MicroWave.Test.Integration
         private ILight light;
         private ICookController cookController;
 
-        //private StringReader stringReader;
         private StringWriter stringWriter;
 
         [SetUp]
@@ -66,14 +65,7 @@ namespace MicroWave.Test.Integration
 
         #region TimeButtonPress
 
-        //[Test]
-        //public void SetPowerState_PressTime_Display1min()
-        //{
-        //    pButton.Press();
-        //    tButton.Press();
-        //    display.Received(1).ShowTime(1,0);
-        //}
-
+        
 
         [TestCase(1)]
         [TestCase(5)]

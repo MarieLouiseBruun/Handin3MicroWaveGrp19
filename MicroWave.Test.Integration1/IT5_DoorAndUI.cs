@@ -22,7 +22,6 @@ namespace MicroWave.Test.Integration
         private ILight light;
         private ICookController cookController;
 
-        //private StringReader stringReader;
         private StringWriter stringWriter;
 
         [SetUp]

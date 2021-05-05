@@ -11,7 +11,6 @@ namespace MicroWave.Test.Integration
     {
         private ILight light;
         private IOutput output;
-        //private StringReader stringReader;
         private StringWriter stringWriter;
 
         [SetUp]
@@ -19,8 +18,6 @@ namespace MicroWave.Test.Integration
         {
             output = new Output();
             light = new Light(output);
-            //stringReader = new StringReader();
-            //System.Console.SetOut(stringReader);
             stringWriter = new StringWriter();
             System.Console.SetOut(stringWriter);
 
